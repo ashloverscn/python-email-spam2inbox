@@ -15,6 +15,7 @@ imap.select(from_folder)
 (retcode, messagess) = imap.uid('search', None, "ALL")
 count = 0
 if retcode == 'OK':
+    sys.stdout.write ('moving mails from ' + from_folder + ' to ' + to_folder + '\n')
     sys.stdout.write ('Total ' + str(len(messagess[0].split())) + '\n')
     sys.stdout.write ('moving started\n')
     for num in messagess[0].split():
