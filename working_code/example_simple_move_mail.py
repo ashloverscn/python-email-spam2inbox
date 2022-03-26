@@ -12,15 +12,19 @@ imap.login(imap_user, imap_pass)
 imap.select(from_folder)
 
 (retcode, messagess) = imap.uid('search', None, "ALL")
+
 if retcode == 'OK':
+    print ("moving started")
     for num in messagess[0].split():
         typ, data = imap.uid('fetch', num,'(RFC822)')
         msg = email.message_from_bytes((data[0][1]))
         result = imap.uid('COPY', num, to_folder)
+        print ('*', end ='')
         if result[0] == 'OK':
             mov, data = imap.uid('STORE', num , '+FLAGS', '(\Deleted)')
             imap.expunge()
+            print ('#', end ='')
       
 imap.close()
 
-print ("moving completed")
+print ("\nmoving completed")
