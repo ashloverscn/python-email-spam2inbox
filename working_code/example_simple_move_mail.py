@@ -1,3 +1,5 @@
+import sys
+import os
 import imaplib
 import email
 
@@ -14,17 +16,21 @@ imap.select(from_folder)
 (retcode, messagess) = imap.uid('search', None, "ALL")
 
 if retcode == 'OK':
-    print ("moving started")
+    sys.stdout.write ('moving started\n')
     for num in messagess[0].split():
         typ, data = imap.uid('fetch', num,'(RFC822)')
         msg = email.message_from_bytes((data[0][1]))
         result = imap.uid('COPY', num, to_folder)
-        print ('*', end ='')
+        sys.stdout.write ('*')
+        sys.stdout.flush()
         if result[0] == 'OK':
             mov, data = imap.uid('STORE', num , '+FLAGS', '(\Deleted)')
             imap.expunge()
-            print ('#', end ='')
-      
+            sys.stdout.write ('#')
+            sys.stdout.flush()
+            
 imap.close()
 
-print ("\nmoving completed")
+sys.stdout.write ('\nmoving completed')
+
+input("\nPress enter to exit ;)")
