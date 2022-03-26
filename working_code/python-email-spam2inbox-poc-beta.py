@@ -1,3 +1,16 @@
+########## gmail folders available ##########
+##b'(\\HasNoChildren) "/" "INBOX"'
+##b'(\\HasNoChildren) "/" "Knowledge"'
+##b'(\\HasChildren \\Noselect) "/" "[Gmail]"'
+##b'(\\All \\HasNoChildren) "/" "[Gmail]/All Mail"'
+##b'(\\HasNoChildren \\Trash) "/" "[Gmail]/Bin"'
+##b'(\\Drafts \\HasNoChildren) "/" "[Gmail]/Drafts"'
+##b'(\\HasNoChildren \\Important) "/" "[Gmail]/Important"'
+##b'(\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"'
+##b'(\\HasNoChildren \\Junk) "/" "[Gmail]/Spam"'
+##b'(\\Flagged \\HasNoChildren) "/" "[Gmail]/Starred"'
+#############################################
+
 mail_server = 'imap.gmail.com'
 account_id = 'admin@quicksupport.live'
 password = 'tchwsmdjnyfdfyal'
