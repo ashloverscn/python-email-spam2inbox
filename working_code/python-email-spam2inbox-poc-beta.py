@@ -11,35 +11,49 @@
 ##b'(\\Flagged \\HasNoChildren) "/" "[Gmail]/Starred"'
 #############################################
 
-mail_server = 'imap.gmail.com'
-account_id = 'admin@quicksupport.live'
-password = 'tchwsmdjnyfdfyal'
-TLS_port = '993'
-source = '"[Gmail]/Spam"'
-target = '"INBOX"'
+imap_host = 'imap.gmail.com'
+imap_port = '993'
+imap_user = 'admin@quicksupport.live'
+imap_pass = 'tchwsmdjnyfdfyal'
+from_folder = '"[Gmail]/Spam"'
+to_folder = '"INBOX"'
 
-import imaplib, email
+import sys, imaplib, email
 
-conn = imaplib.IMAP4_SSL(mail_server, TLS_port)
+imap = imaplib.IMAP4_SSL(imap_host, imap_port)
 
 try:
-    (retcode, capabilities) = conn.login(account_id, password)
+    (retcode, capabilities) = imap.login(imap_user, imap_pass)
     
 except:
     messages.error(request, 'Request Failed! Unable to connect to Mailbox. Please try again.')
 
-conn.select(source)
+imap.select(from_folder)
 
-(retcode, messagess) = conn.uid('search', None, "ALL")
+(retcode, messagess) = imap.uid('search', None, "ALL")
+count = 0
 if retcode == 'OK':
+    sys.stdout.write ('moving mails from ' + from_folder + ' to ' + to_folder + '\n')
+    sys.stdout.write ('Total ' + str(len(messagess[0].split())) + '\n')
+    sys.stdout.write ('moving started\n')
     for num in messagess[0].split():
-        typ, data = conn.uid('fetch', num,'(RFC822)')
+        typ, data = imap.uid('fetch', num,'(RFC822)')
         msg = email.message_from_bytes((data[0][1]))
-        result = conn.uid('COPY', num, target)
+        result = imap.uid('COPY', num, to_folder)
         if result[0] == 'OK':
-            mov, data = conn.uid('STORE', num , '+FLAGS', '(\Deleted)')
-            conn.expunge()
-      
-conn.close()
+            mov, data = imap.uid('STORE', num , '+FLAGS', '(\Deleted)')
+            imap.expunge()
+            count += 1
+            sys.stdout.flush()
+            sys.stdout.write("\r{0}".format(count))
+            
+if count == 0:
+    sys.stdout.write('nothing to move')
 
-print ("moving completed")
+imap.close()
+
+sys.stdout.write ('\nmoving completed')
+
+input("\nPress enter to exit ;)")
+
+
