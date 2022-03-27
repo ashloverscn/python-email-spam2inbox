@@ -5,9 +5,12 @@ import webbrowser
 import os
 
 # account credentials
-username = "admin@quicksupport.live"
-password = "tchwsmdjnyfdfyal"
-
+imap_host = 'imap.gmail.com'
+imap_port = '993'
+imap_user = 'admin@quicksupport.live'
+imap_pass = 'tchwsmdjnyfdfyal'
+from_folder = '"[Gmail]/Spam"'
+to_folder = '"INBOX"'
 
 def clean(text):
     # clean text for creating a folder
@@ -17,31 +20,14 @@ def clean(text):
 N = 3
 
 # create an IMAP4 class with SSL, use your email provider's IMAP server
-imap = imaplib.IMAP4_SSL("imap.gmail.com")
+imap = imaplib.IMAP4_SSL(imap_host,imap_port)
 # authenticate
-imap.login(username, password)
+imap.login(imap_user, imap_pass)
 
 # select a mailbox (in this case, the inbox mailbox)
 # use imap.list() to get the list of mailboxes
 ##status, messages = imap.select("INBOX")
-status, messages = imap.select("[Gmail]/Spam")
-
-#### print all folder labels
-##for i in imap.list()[1]:
-##    print(i)
-##
-
-########## what i got as folders ##########
-##b'(\\HasNoChildren) "/" "INBOX"'
-##b'(\\HasNoChildren) "/" "Knowledge"'
-##b'(\\HasChildren \\Noselect) "/" "[Gmail]"'
-##b'(\\All \\HasNoChildren) "/" "[Gmail]/All Mail"'
-##b'(\\HasNoChildren \\Trash) "/" "[Gmail]/Bin"'
-##b'(\\Drafts \\HasNoChildren) "/" "[Gmail]/Drafts"'
-##b'(\\HasNoChildren \\Important) "/" "[Gmail]/Important"'
-##b'(\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"'
-##b'(\\HasNoChildren \\Junk) "/" "[Gmail]/Spam"'
-##b'(\\Flagged \\HasNoChildren) "/" "[Gmail]/Starred"'
+status, messages = imap.select(from_folder)
 
 # total number of emails
 messages = int(messages[0])
