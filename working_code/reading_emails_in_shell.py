@@ -3,40 +3,24 @@ import imaplib
 import email
 
 #credentials
-username ="admin@quicksupport.live"
-
-#generated app password
-app_password= "tchwsmdjnyfdfyal"
+imap_host = 'imap.gmail.com'
+imap_port = '993'
+imap_user = 'admin@quicksupport.live'
+imap_pass = 'tchwsmdjnyfdfyal'
+from_folder = '"[Gmail]/Spam"'
+to_folder = '"INBOX"'
 
 # https://www.systoolsgroup.com/imap/
 gmail_host= 'imap.gmail.com'
 
 #set connection
-mail = imaplib.IMAP4_SSL(gmail_host)
+mail = imaplib.IMAP4_SSL(imap_host,imap_port)
 
 #login
-mail.login(username, app_password)
+mail.login(imap_user, imap_pass)
 
 #select inbox
-mail.select("[Gmail]/Spam")
-
-#### print all folder labels
-##for i in imap.list()[1]:
-##    print(i)
-##
-
-########## what i got in folders ##########
-##b'(\\HasNoChildren) "/" "INBOX"'
-##b'(\\HasNoChildren) "/" "Knowledge"'
-##b'(\\HasChildren \\Noselect) "/" "[Gmail]"'
-##b'(\\All \\HasNoChildren) "/" "[Gmail]/All Mail"'
-##b'(\\HasNoChildren \\Trash) "/" "[Gmail]/Bin"'
-##b'(\\Drafts \\HasNoChildren) "/" "[Gmail]/Drafts"'
-##b'(\\HasNoChildren \\Important) "/" "[Gmail]/Important"'
-##b'(\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"'
-##b'(\\HasNoChildren \\Junk) "/" "[Gmail]/Spam"'
-##b'(\\Flagged \\HasNoChildren) "/" "[Gmail]/Starred"'
-
+mail.select(from_folder)
 #select specific mails
 ##_, selected_mails = mail.search(None, '(FROM "admin@quicksupport.live")')
 _, selected_mails = mail.search(None, 'ALL')
