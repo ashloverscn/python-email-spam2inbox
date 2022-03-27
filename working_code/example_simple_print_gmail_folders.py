@@ -1,17 +1,15 @@
 import imaplib
-import pprint
 
 imap_host = 'imap.gmail.com'
+imap_port = '993'
 imap_user = 'admin@quicksupport.live'
 imap_pass = 'tchwsmdjnyfdfyal'
 
 # connect to host using SSL
-imap = imaplib.IMAP4_SSL(imap_host)
+imap = imaplib.IMAP4_SSL(imap_host,imap_port)
 
 ## login to server
 imap.login(imap_user, imap_pass)
-
-imap.select("[Gmail]/Spam")
 
 ## print all folder labels
 for i in imap.list()[1]:
