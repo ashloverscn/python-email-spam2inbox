@@ -29,11 +29,6 @@ imap.login(imap_user, imap_pass)
 ##status, messages = imap.select("INBOX")
 status, messages = imap.select(folder)
 
-#### print all folder labels
-##for i in imap.list()[1]:
-##    print(i)
-##
-
 ##tmp, data = imap.search(None, '(FROM "admin@quicksupport.live")')
 tmp, data = imap.search(None, 'ALL')
 
