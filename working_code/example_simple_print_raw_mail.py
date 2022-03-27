@@ -11,13 +11,14 @@
 ##b'(\\Flagged \\HasNoChildren) "/" "[Gmail]/Starred"'
 
 import imaplib
+import pprint
 
 imap_host = 'imap.gmail.com'
 imap_port = '993'
 imap_user = 'admin@quicksupport.live'
 imap_pass = 'tchwsmdjnyfdfyal'
-from_folder = '"[Gmail]/Spam"'
-to_folder = '"INBOX"'
+from_folder = '"INBOX"'
+to_folder = '"[Gmail]/Spam"'
 
 # connect to host using SSL
 imap = imaplib.IMAP4_SSL(imap_host,imap_port)
