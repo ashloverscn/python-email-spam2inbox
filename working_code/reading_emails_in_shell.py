@@ -7,8 +7,8 @@ imap_host = 'imap.gmail.com'
 imap_port = '993'
 imap_user = 'admin@quicksupport.live'
 imap_pass = 'tchwsmdjnyfdfyal'
-from_folder = '"[Gmail]/Spam"'
-to_folder = '"INBOX"'
+from_folder = '"INBOX"'
+to_folder = '"[Gmail]/Spam"'
 
 # https://www.systoolsgroup.com/imap/
 gmail_host= 'imap.gmail.com'
@@ -48,4 +48,3 @@ for num in selected_mails[0].split():
             print("Message: \n", message.decode())
             print("==========================================\n")
             break
-
