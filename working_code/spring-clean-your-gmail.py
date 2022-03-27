@@ -9,7 +9,7 @@ from_folder = '"[Gmail]/Spam"'
 to_folder = '"INBOX"'
 
 # create IMAP4 with SSL
-imap = imaplib.IMAP4_SSL(immap_host, imap_port)
+imap = imaplib.IMAP4_SSL(imap_host, imap_port)
 # authenticate
 imap.login(imap_user, imap_pass)
 
@@ -33,7 +33,7 @@ else:
     # on a bunch of comma-separated msg ids
     msg_ids = ','.join(msg_ids.split(' '))
     print("Moving to Trash using X-GM_LABELS.")
-    imap.store(msg_ids, '+X-GM-LABELS', '\\Trash')
+    imap.store(msg_ids, '+X-GM-LABELS', '\Trash')
 
     # SECTION 3: Once all the required emails have been sent to Trash,
     # permanently delete emails marked as deleted from the selected folder
