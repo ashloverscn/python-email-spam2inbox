@@ -1,21 +1,22 @@
 import imaplib
 
 # account credentials and other configs
-# replace with you Gmail username and password
-username = "admin@quicksupport.live"
-password = "tchwsmdjnyfdfyal"
-folderToDeleteEmailsFrom = '"[Gmail]/All Mail"'
-trashFolder = '[Gmail]/Trash'
+imap_host = 'imap.gmail.com'
+imap_port = '993'
+imap_user = 'admin@quicksupport.live'
+imap_pass = 'tchwsmdjnyfdfyal'
+from_folder = '"[Gmail]/Spam"'
+to_folder = '"INBOX"'
 
 # create IMAP4 with SSL
-imap = imaplib.IMAP4_SSL("imap.gmail.com", 993)
+imap = imaplib.IMAP4_SSL(immap_host, imap_port)
 # authenticate
-imap.login(username, password)
+imap.login(imap_user, imap_pass)
 
 # list all the mailboxes present
 print(imap.list())
 # SECTION 1: select the mailbox to delete emails from
-imap.select(folderToDeleteEmailsFrom)
+imap.select(from_folder)
 
 gmail_search = '"category:promotions NOT is: important"'
 typ, [msg_ids] = imap.search(None, 'X-GM-RAW', gmail_search)
@@ -37,7 +38,7 @@ else:
     # SECTION 3: Once all the required emails have been sent to Trash,
     # permanently delete emails marked as deleted from the selected folder
     print("Emptying Trash and expunge...")
-    imap.select(trashFolder)
+    imap.select(to_folder)
     imap.store("1:*", '+FLAGS', '\\Deleted')  # Flag all Trash as Deleted
     imap.expunge()
 
