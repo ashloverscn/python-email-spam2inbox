@@ -16,7 +16,8 @@ imap_host = 'imap.gmail.com'
 imap_port = '993'
 imap_user = 'admin@quicksupport.live'
 imap_pass = 'tchwsmdjnyfdfyal'
-folder = "[Gmail]/Spam"
+from_folder = '"[Gmail]/Spam"'
+to_folder = '"INBOX"'
 
 # connect to host using SSL
 imap = imaplib.IMAP4_SSL(imap_host,imap_port)
@@ -27,7 +28,7 @@ imap.login(imap_user, imap_pass)
 # select a mailbox (in this case, the inbox mailbox)
 # use imap.list() to get the list of mailboxes
 ##status, messages = imap.select("INBOX")
-status, messages = imap.select(folder)
+status, messages = imap.select(from_folder)
 
 ##tmp, data = imap.search(None, '(FROM "admin@quicksupport.live")')
 tmp, data = imap.search(None, 'ALL')
