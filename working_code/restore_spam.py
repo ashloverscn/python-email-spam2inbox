@@ -6,10 +6,10 @@ imap_host = 'imap.gmail.com'
 imap_port = '993'
 imap_user = 'admin@quicksupport.live'
 imap_pass = 'tchwsmdjnyfdfyal'
-from_folder = '"[Gmail]/Spam"'
-to_folder = '"INBOX"'
+from_folder = '"INBOX"'
+to_folder = '"[Gmail]/Spam"'
 
-imap = imaplib.IMAP4_SSL(imap_host,imap_host)
+imap = imaplib.IMAP4_SSL(imap_host,imap_port)
 imap.login(imap_user, imap_pass)
 imap.select(from_folder)
 
