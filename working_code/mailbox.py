@@ -20,7 +20,7 @@ for other IMAP servers, adjust settings as necessary.
 import imaplib
 import time
 import uuid
-from email import email
+import email
 
 
 
@@ -76,7 +76,7 @@ class MailBox(object):
         status, data = self.imap.search(None, 'ALL')
         for num in reversed(data[0].split()):
             status, data = self.imap.fetch(num, '(RFC822)')
-            print 'Message %s\n%s\n' % (num, data[0][1])
+            print ('Message %s\n%s\n' % (num, data[0][1]))
 
     def get_latest_email_sent_to(self, email_address, timeout=300, poll=1):
         start_time = time.time()
@@ -115,5 +115,5 @@ if __name__ == '__main__':
     imap_username = 'admin@quicksupport.live'
     imap_password = 'tchwsmdjnyfdfyal'
     with MailBox(imap_username, imap_password) as mbox:
-        print mbox.get_count()
-        print mbox.print_msgs()
+        print (mbox.get_count())
+        print (mbox.print_msgs())
